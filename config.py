@@ -5,10 +5,10 @@ experiment_modes = [0, 1]
 
 
 # [HARDWARE]
-xarm_connected = True
+xarm_connected = False
 
 # [DATAWRITER]
-data_logging = True
+data_logging = False
 path = "data"
 figsize_xy = (100, 12)
 samplerate = 0.01
@@ -45,7 +45,8 @@ stream_list = ['rnd_poetry',
                'audio2core',
                'audio2flow',
                'flow2audio',
-               'eda2flow']
+               'eda2flow',
+               'audio2eda']
 
 
 

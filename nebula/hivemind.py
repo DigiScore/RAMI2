@@ -19,8 +19,8 @@ class DataBorg:
             ######################
             # Outputs from NNets in AI Factory rework
             ######################
-            self.eeg2flow: float = random()
-            self.eeg2flow_2d: np.array = np.random.uniform(size=(1, 50))
+            self.audio2eda: float = random()
+            self.audio2eda_2d: np.array = np.random.uniform(size=(1, 50))
 
             self.flow2core: float = random()
             self.flow2core_2d: np.array = np.random.uniform(size=(2, 50))
@@ -70,17 +70,17 @@ class DataBorg:
             # Bitalino streams
             ######################
 
-            self.bitalino_x: int = 0
-
-            self.bitalino_y: int = 0
-
-            self.bitalino_z: int = 0
-
-            self.bitalino_eda: int = 0
-
-            self.bitalino_ecg: int = 0
-
-            self.bitalino_rsp: int = 0
+            # self.bitalino_x: int = 0
+            #
+            # self.bitalino_y: int = 0
+            #
+            # self.bitalino_z: int = 0
+            #
+            # self.bitalino_eda: int = 0
+            #
+            # self.bitalino_ecg: int = 0
+            #
+            # self.bitalino_rsp: int = 0
 
             # self.bitalino_button: int = 0
 
@@ -143,8 +143,8 @@ class DataBorg:
         self.eda_buffer = np.random.uniform(size=(1, 50))
         self.audio_buffer = np.random.uniform(size=(1, 50))
 
-        self.eeg2flow = random()
-        self.eeg2flow_2d = np.random.uniform(size=(1, 50))
+        self.audio2eda = random()
+        self.audio2eda_2d = np.random.uniform(size=(1, 50))
 
         self.flow2core = random()
         self.flow2core_2d = np.random.uniform(size=(2, 50))

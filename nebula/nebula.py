@@ -92,12 +92,12 @@ class Nebula(Listener, AIFactoryRAMI):
         # Declare all threads
         t1 = Thread(target=self.make_data)
         t2 = Thread(target=self.snd_listen)
-        t3 = Thread(target=self.human_input)
+        # t3 = Thread(target=self.human_input)
 
         # Start them all
         t1.start()
         t2.start()
-        t3.start()
+        # t3.start()
 
     def human_input(self):
         """

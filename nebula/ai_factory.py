@@ -64,7 +64,7 @@ class AIFactoryRAMI:
         """
         Builds the individual neural nets that constitute the AI factory.
 
-        1. Predicted flow from EDA -> core (for current_nnet_x_y_z into current_robot_x_y_z)
+        1. Predicted eda from Audio
 
         2. Robot position (current_robot_x_y) -> predicted flow
 
@@ -82,10 +82,10 @@ class AIFactoryRAMI:
         self.hivemind = DataBorg()
         # self.global_speed = speed
         # Instantiate nets as objects and make models
-        # logging.info('NNetRework1 - EEG to flow initialization')
-        # self.eeg2flow = NNetRAMI(name="eeg2flow",
-        #                            model='nebula/models/eeg2flow.pt',
-        #                            in_feature='eeg_buffer')
+        logging.info('NNetRework1 - Audio to eda initialization')
+        self.audio2eda = NNetRAMI(name="audio2eda",
+                                   model='nebula/models/audio2eda.pt',
+                                   in_feature='audio_buffer')
 
         logging.info('NNetRework2 - Flow to core initialization')
         self.flow2core = NNetRAMI(name="flow2core",
@@ -115,9 +115,9 @@ class AIFactoryRAMI:
         logging.info('NNetRework7 - EDA to flow initialization')
         self.eda2flow = NNetRAMI(name="eda2flow",
                                    model='nebula/models/eda2flow.pt',
-                                   in_feature='eda_buffer')
+                                   in_feature='audio2eda_2d')
 
-        self.netlist = [ # self.eeg2flow,
+        self.netlist = [self.audio2eda,
                         self.flow2core,
                         self.core2flow,
                         self.audio2core,
