@@ -1,6 +1,6 @@
-# Wolff1
+# IMPROV2
 
-Wolff1 is a digital score. It is a realisation of Christian Wolff’s famous composition 
+IMPROV2 is a digital score. It is a realisation of Christian Wolff’s famous composition 
 _For 1, 2 or 3 Players_ (1964) conceptualized as an interactive robot. 
 The robot is embedded with AI that has been trained on Wolff’s original score and will work with 
 a performer in realtime to realise the music.
@@ -12,16 +12,13 @@ a performer in realtime to realise the music.
 pip install -r requirements.txt
 ```
 ## Setup b) poetry
-- Navigate inside wolff1 folder
+- Navigate inside RAMI2 folder
   -     poetry shell
   -     poetry install
 
 ## Quick Start
 - Connect the robot to the computer (follow XArm instructions for static IP)
-- Connect the BITalino to the computer via bluetooth (passcode 1234)
-- Run Open Signals [LINK](https://support.pluxbiosignals.com/knowledge-base/introducing-opensignals-revolution/)
 - Run clock.py in terminal
-- Record Open Signals
 - Run `main.py`
 
 ## Important operational fields in config.py
