@@ -70,7 +70,7 @@ class Main:
         ###################
         art.tprint("IMPROV2")
 
-        answer = input("Click enter when you are ready to go, after STARTING CLOCK & OPEN SIGNALS")
+        answer = input("Click enter when you are ready to go, after STARTING CLOCK")
 
         # Init the AI factory (inherits AIFactory, Listener)
         self.nebula = Nebula() # eda=self.eda)
