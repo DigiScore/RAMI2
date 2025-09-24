@@ -33,11 +33,6 @@ mic_sensitivity = 10000
 mic_in_prediction = 0.36
 mic_in_logging = False
 
-# [BITALINO]
-baudrate = 100
-channels = [0, 1, 2, 3]
-mac_address = "00:21:08:35:16:D4"    # "98:D3:B1:FD:3D:1F"   "00:21:08:35:17:C0" #"98:D3:B1:FD:3D:1F"  # '/dev/cu.BITalino-3F-AE' (Linux)
-
 # [STREAMING]
 stream_list = ['rnd_poetry',
                'flow2core',

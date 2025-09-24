@@ -27,7 +27,6 @@ pip install -r requirements.txt
 - duration_of_piece: int: in seconds
 - mic_sensitivity: int: how sensitive the live microphone
 - mic_in_logging: bool: see mic input level in console
-- mac_address: str: the 6 pair code for Bitalino
 
 To run the robot simulator
 https://forum.ufactory.cc/t/ufactory-studio-simulation/3719
