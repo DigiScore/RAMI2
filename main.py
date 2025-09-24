@@ -8,7 +8,6 @@ from modules.conducter import Conducter
 from modules.ai_robot_data_writer import AIRobotDataWriter
 from nebula.hivemind import DataBorg
 from nebula.nebula import Nebula
-from modules.randomize_modes import generate_random_modes
 
 DATA_LOGGING = config.data_logging
 MAIN_PATH = config.path
@@ -44,18 +43,12 @@ class Main:
         Manage the experiment loop.
         """
         # while self.hivemind.MASTER_RUNNING:
-        random_experiment_list = generate_random_modes()
-
-        print("\nMODES FOR THIS SESSION:")
-        for i in random_experiment_list:
-            print(f"\t{i}")
-
         repeat = 1
-        for i, experiment_mode in enumerate(random_experiment_list):
+        for i in range(config.number_of_experiments):
             # Init Conducter & Gesture management (controls XArm)
             self.robot = Conducter()
 
-            print(f"=========================================         Running experimental mode:  {repeat} - {experiment_mode}")
+            print(f"=========================================         Running AI mode: {repeat}")
             # reset variables
             self.hivemind.MASTER_RUNNING = True
             self.first_time_through = True
@@ -65,21 +58,21 @@ class Main:
                 # make new directory for this log e.g. ../data/20240908_123456
                 if DATA_LOGGING:
                     if self.first_time_through:
-                        self.master_path = Path(f"{MAIN_PATH}/{self.hivemind.session_date}/WOLFF1_block_{repeat}_performance_{i+1}_mode_{experiment_mode}")
+                        self.master_path = Path(f"{MAIN_PATH}/{self.hivemind.session_date}/IMPROV2_block_{repeat}_performance_{i+1}_mode_AI")
                         self.makenewdir(self.master_path)
                 else:
                     self.master_path = None
 
                 # run all systems
                 if self.first_time_through:
-                    self.wolff1_main(experiment_mode)
+                    self.wolff1_main()
                     self.first_time_through = False
 
                 else:
                     sleep(1)
             self.robot.terminate()
-            print(f"=========================================         Completed experiment mode  {repeat} - {experiment_mode}.")
-            if i < len(random_experiment_list)- 1:
+            print(f"=========================================         Completed experiment mode {repeat}.")
+            if i < config.number_of_experiments - 1:
                 answer = input("Next Experiment?")
             else:
                 print("TERMINATING experiment mode.")
@@ -102,7 +95,7 @@ class Main:
         self.robot.terminate()
         self.nebula.terminate_listener()
 
-    def wolff1_main(self, experiment_mode):
+    def wolff1_main(self):
         """
         Main script to start a single robot arm digital score work.
         Conducter calls the local interpreter for project specific functions. This
@@ -120,7 +113,7 @@ class Main:
         self.nebula.endtime = time() + config.duration_of_piece
         self.hivemind.running = True
         # self.robot = Conducter()
-        self.robot.main_loop(experiment_mode)
+        self.robot.main_loop()
         self.nebula.main_loop()
 
         if DATA_LOGGING:

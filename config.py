@@ -1,8 +1,5 @@
-# [EXPERIMENT MODES]
-experiment_modes = [0, 1]
-# 0 = normal AI mode
-# 1 = scripted list
-
+# NUMBER OF EXPERIMENTS
+number_of_experiments = 8
 
 # [HARDWARE]
 xarm_connected = True
