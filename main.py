@@ -68,7 +68,7 @@ class Main:
         ###################
         # Start Nebula AI
         ###################
-        art.tprint("Wolff 2")
+        art.tprint("IMPROV 2")
 
         answer = input("Click enter when you are ready to go, after STARTING CLOCK & OPEN SIGNALS")
 
