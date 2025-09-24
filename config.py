@@ -5,7 +5,7 @@ number_of_experiments = 8
 volume_range = [1000, 2000]
 
 # [HARDWARE]
-xarm_connected = False
+xarm_connected = True
 
 # [DATAWRITER]
 data_logging = False
