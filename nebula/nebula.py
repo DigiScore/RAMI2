@@ -14,11 +14,9 @@ Dedicated to Fabrizio Poltronieri
 import logging
 import numpy as np
 import warnings
-from scipy import signal
 from threading import Thread
 from time import sleep, time
 
-import config
 from modules.listener import Listener
 from nebula.ai_factory import AIFactoryRAMI
 
