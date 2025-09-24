@@ -1,27 +1,21 @@
 import logging
 from time import time, sleep
-import os
 import art
-import subprocess
-from threading import Thread
 from pathlib import Path
 
 import config
 from modules.conducter import Conducter
 from modules.ai_robot_data_writer import AIRobotDataWriter
-from modules.biodata_data_writer import BiodataDataWriter
 from nebula.hivemind import DataBorg
 from nebula.nebula import Nebula
 from modules.randomize_modes import generate_random_modes
-# from modules.rami_main import Rami_Main
-# from clock import Clock
 
 DATA_LOGGING = config.data_logging
 MAIN_PATH = config.path
 
 class Main:
     """
-    Main kickstarts the RAMI process. If there is datalogging (Bitalino, Pupil)
+    Main kickstarts the RAMI process. If there is datalogging
     then it will init the connections.
     Essentially, it wil iterate through a series of RAMI experiments, and log
     data for each one separately, while maintaining connection the sensors.
@@ -33,36 +27,6 @@ class Main:
 
         # Build initial dataclass filled with random numbers
         self.hivemind = DataBorg()
-
-        # # Init data logging
-        # if DATA_LOGGING:
-        #     ###################
-        #     # Start Bitalino
-        #     ###################
-        #     # get relevant libraries
-        #     from modules.bitalino import BITalino
-        #
-        #     # start bitalino
-        #     BITALINO_MAC_ADDRESS = config.mac_address
-        #     BITALINO_BAUDRATE = config.baudrate
-        #     BITALINO_ACQ_CHANNELS = config.channels
-        #
-        #     eda_started = False
-        #     while not eda_started:
-        #         try:
-        #             self.eda = BITalino(BITALINO_MAC_ADDRESS)
-        #             eda_started = True
-        #         except OSError:
-        #             print("Unable to connect to Bitalino")
-        #             retry = input("Retry (y/N)? ")
-        #             if retry.lower() != "y":  #  or retry.lower() != "yes":
-        #                 eda_started = True
-        #
-        #     self.eda.start(BITALINO_BAUDRATE, BITALINO_ACQ_CHANNELS)
-        #     first_eda_data = self.eda.read(1)[0]
-        #     logging.info(f'Data from BITalino = {first_eda_data}')
-
-        # else:
         self.eda = None
 
         ###################
@@ -73,7 +37,7 @@ class Main:
         answer = input("Click enter when you are ready to go, after STARTING CLOCK")
 
         # Init the AI factory (inherits AIFactory, Listener)
-        self.nebula = Nebula() # eda=self.eda)
+        self.nebula = Nebula()
 
     def main_loop(self):
         """
@@ -135,8 +99,6 @@ class Main:
         """
         Terminates all active agents and threads
         """
-        # if DATA_LOGGING:
-        #     self.eda.close()
         self.robot.terminate()
         self.nebula.terminate_listener()
 
@@ -153,7 +115,6 @@ class Main:
         # Init data writer
         if DATA_LOGGING:
             aidw = AIRobotDataWriter(self.master_path)
-            # bdw = BiodataDataWriter(self.master_path)
 
         # Start Nebula AI Factory after conducter starts data moving
         self.nebula.endtime = time() + config.duration_of_piece
