@@ -43,6 +43,18 @@ class Listener:
 
         self.mic_sensitivity = config.mic_sensitivity
 
+        while True:
+            data = np.fromstring(self.stream.read(self.CHUNK), dtype=np.int16)
+            peak = int(np.average(np.abs(data)) * 2)
+            bars = "#" * int(50 * peak / 2 ** 16)
+            if peak < config.volume_range[0]:
+                print(f"\rSound Check: {peak} {bars} - VOLUME TOO LOW. Please turn it up! ", flush=True, end="")
+            elif peak > config.volume_range[1]:
+                print(f"\rSound Check: {peak} {bars} - VOLUME TOO LOUD. Please turn it up! ", flush=True, end="")
+            else:
+                print("\rVOLUME OK!", flush=True, end="\n")
+                break
+
         # Plug into the hive mind data borg
         self.hivemind = DataBorg()
 
