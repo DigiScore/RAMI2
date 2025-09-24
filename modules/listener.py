@@ -9,6 +9,7 @@ from time import time
 import config
 from nebula.hivemind import DataBorg
 
+
 def buffer_scaler(in_feature, mins, maxs):
     in_feature = np.array(in_feature)
     mins = np.array(mins)[:, np.newaxis]
@@ -16,6 +17,7 @@ def buffer_scaler(in_feature, mins, maxs):
     in_feature = (in_feature - mins) / (maxs - mins)
     in_feature = in_feature.clip(0, 1)
     return in_feature
+
 
 class Listener:
     def __init__(self):
@@ -40,6 +42,18 @@ class Listener:
                                   frames_per_buffer=self.CHUNK)
 
         self.mic_sensitivity = config.mic_sensitivity
+
+        while True:
+            data = np.fromstring(self.stream.read(self.CHUNK), dtype=np.int16)
+            peak = int(np.average(np.abs(data)) * 2)
+            bars = "#" * int(50 * peak / 2 ** 16)
+            if peak < config.volume_range[0]:
+                print(f"\rSound Check: {peak} {bars} - VOLUME TOO LOW. Please turn it up! ", flush=True, end="")
+            elif peak > config.volume_range[1]:
+                print(f"\rSound Check: {peak} {bars} - VOLUME TOO LOUD. Please turn it up! ", flush=True, end="")
+            else:
+                print("\rVOLUME OK!", flush=True, end="\n")
+                break
 
         # Plug into the hive mind data borg
         self.hivemind = DataBorg()
@@ -113,8 +127,8 @@ class Listener:
         # self.terminate_listener()
 
     def terminate_listener(self):
-        # wavfile.write(f'data/{self.hivemind.session_date}.wav', self.RATE,
-        #               self.hivemind.audio_buffer_raw.astype(np.int16))
+        wavfile.write(f'data/{self.hivemind.session_date}/{self.hivemind.session_date}.wav', self.RATE,
+                      self.hivemind.audio_buffer_raw.astype(np.int16))
         self.stream.stop_stream()
         self.stream.close()
         self.p.terminate()

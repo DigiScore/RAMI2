@@ -1,27 +1,20 @@
 import logging
 from time import time, sleep
-import os
 import art
-import subprocess
-from threading import Thread
 from pathlib import Path
 
 import config
 from modules.conducter import Conducter
 from modules.ai_robot_data_writer import AIRobotDataWriter
-from modules.biodata_data_writer import BiodataDataWriter
 from nebula.hivemind import DataBorg
 from nebula.nebula import Nebula
-from modules.randomize_modes import generate_random_modes
-# from modules.rami_main import Rami_Main
-# from clock import Clock
 
 DATA_LOGGING = config.data_logging
 MAIN_PATH = config.path
 
 class Main:
     """
-    Main kickstarts the RAMI process. If there is datalogging (Bitalino, Pupil)
+    Main kickstarts the RAMI process. If there is datalogging
     then it will init the connections.
     Essentially, it wil iterate through a series of RAMI experiments, and log
     data for each one separately, while maintaining connection the sensors.
@@ -33,65 +26,29 @@ class Main:
 
         # Build initial dataclass filled with random numbers
         self.hivemind = DataBorg()
-
-        # # Init data logging
-        # if DATA_LOGGING:
-        #     ###################
-        #     # Start Bitalino
-        #     ###################
-        #     # get relevant libraries
-        #     from modules.bitalino import BITalino
-        #
-        #     # start bitalino
-        #     BITALINO_MAC_ADDRESS = config.mac_address
-        #     BITALINO_BAUDRATE = config.baudrate
-        #     BITALINO_ACQ_CHANNELS = config.channels
-        #
-        #     eda_started = False
-        #     while not eda_started:
-        #         try:
-        #             self.eda = BITalino(BITALINO_MAC_ADDRESS)
-        #             eda_started = True
-        #         except OSError:
-        #             print("Unable to connect to Bitalino")
-        #             retry = input("Retry (y/N)? ")
-        #             if retry.lower() != "y":  #  or retry.lower() != "yes":
-        #                 eda_started = True
-        #
-        #     self.eda.start(BITALINO_BAUDRATE, BITALINO_ACQ_CHANNELS)
-        #     first_eda_data = self.eda.read(1)[0]
-        #     logging.info(f'Data from BITalino = {first_eda_data}')
-
-        # else:
         self.eda = None
 
         ###################
         # Start Nebula AI
         ###################
-        art.tprint("Wolff 2")
+        art.tprint("IMPROV2")
 
-        answer = input("Click enter when you are ready to go, after STARTING CLOCK & OPEN SIGNALS")
+        answer = input("Click enter when you are ready to go, after STARTING CLOCK")
 
         # Init the AI factory (inherits AIFactory, Listener)
-        self.nebula = Nebula() # eda=self.eda)
+        self.nebula = Nebula()
 
     def main_loop(self):
         """
         Manage the experiment loop.
         """
         # while self.hivemind.MASTER_RUNNING:
-        random_experiment_list = generate_random_modes()
-
-        print("\nMODES FOR THIS SESSION:")
-        for i in random_experiment_list:
-            print(f"\t{i}")
-
         repeat = 1
-        for i, experiment_mode in enumerate(random_experiment_list):
+        for i in range(config.number_of_experiments):
             # Init Conducter & Gesture management (controls XArm)
             self.robot = Conducter()
 
-            print(f"=========================================         Running experimental mode:  {repeat} - {experiment_mode}")
+            print(f"=========================================         Running AI mode: {repeat}")
             # reset variables
             self.hivemind.MASTER_RUNNING = True
             self.first_time_through = True
@@ -101,21 +58,21 @@ class Main:
                 # make new directory for this log e.g. ../data/20240908_123456
                 if DATA_LOGGING:
                     if self.first_time_through:
-                        self.master_path = Path(f"{MAIN_PATH}/{self.hivemind.session_date}/WOLFF1_block_{repeat}_performance_{i+1}_mode_{experiment_mode}")
+                        self.master_path = Path(f"{MAIN_PATH}/{self.hivemind.session_date}/IMPROV2_block_{repeat}_performance_{i+1}_mode_AI")
                         self.makenewdir(self.master_path)
                 else:
                     self.master_path = None
 
                 # run all systems
                 if self.first_time_through:
-                    self.wolff1_main(experiment_mode)
+                    self.wolff1_main()
                     self.first_time_through = False
 
                 else:
                     sleep(1)
             self.robot.terminate()
-            print(f"=========================================         Completed experiment mode  {repeat} - {experiment_mode}.")
-            if i < len(random_experiment_list)- 1:
+            print(f"=========================================         Completed experiment mode {repeat}.")
+            if i < config.number_of_experiments - 1:
                 answer = input("Next Experiment?")
             else:
                 print("TERMINATING experiment mode.")
@@ -135,12 +92,10 @@ class Main:
         """
         Terminates all active agents and threads
         """
-        # if DATA_LOGGING:
-        #     self.eda.close()
         self.robot.terminate()
         self.nebula.terminate_listener()
 
-    def wolff1_main(self, experiment_mode):
+    def wolff1_main(self):
         """
         Main script to start a single robot arm digital score work.
         Conducter calls the local interpreter for project specific functions. This
@@ -153,13 +108,12 @@ class Main:
         # Init data writer
         if DATA_LOGGING:
             aidw = AIRobotDataWriter(self.master_path)
-            # bdw = BiodataDataWriter(self.master_path)
 
         # Start Nebula AI Factory after conducter starts data moving
         self.nebula.endtime = time() + config.duration_of_piece
         self.hivemind.running = True
         # self.robot = Conducter()
-        self.robot.main_loop(experiment_mode)
+        self.robot.main_loop()
         self.nebula.main_loop()
 
         if DATA_LOGGING:

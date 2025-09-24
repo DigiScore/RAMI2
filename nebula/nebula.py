@@ -14,13 +14,9 @@ Dedicated to Fabrizio Poltronieri
 import logging
 import numpy as np
 import warnings
-from scipy import signal
 from threading import Thread
 from time import sleep, time
 
-import config
-from modules.bitalino import BITalino
-# from modules.brainbit import BrainbitReader
 from modules.listener import Listener
 from nebula.ai_factory import AIFactoryRAMI
 
@@ -76,11 +72,6 @@ class Nebula(Listener, AIFactoryRAMI):
         # Build the AI factory and pass it the data dict
         AIFactoryRAMI.__init__(self)  #, speed)
 
-        # Own Bitalino
-        # self.BITALINO_CONNECTED = config.data_logging
-        # if self.BITALINO_CONNECTED:
-        #     self.eda = eda
-
         # Work out master timing then collapse hivemind.running
         self.endtime = 0
 
@@ -106,66 +97,11 @@ class Nebula(Listener, AIFactoryRAMI):
         while self.hivemind.running:
             if time() >= self.endtime:
                 break
-            # Read data from bitalino
-            # if self.BITALINO_CONNECTED:
-            #     # Get raw data from Bitalino
-            #     bitalino_raw = self.eda.read(1)[0]
-            #
-            #     # write out the Bitalino data to the log
-            #     self.hivemind.bitalino_x = int(bitalino_raw[5])
-            #
-            #     self.hivemind.bitalino_y = int(bitalino_raw[6])
-            #
-            #     self.hivemind.bitalino_z = int(bitalino_raw[7])
-            #
-            #     self.hivemind.bitalino_eda = int(bitalino_raw[8])
-            #
-            #     # self.hivemind.bitalino_ecg = int(bitalino_raw[9])
-            #     #
-            #     # self.hivemind.bitalino_rsp = int(bitalino_raw[10])
-            #
-            #     # extract eda for processing
-            #     eda_raw = [self.hivemind.bitalino_eda]  # [self.eda.read(1)[0][-1]]
-            #
-            #     logging.debug(f"eda data raw = {eda_raw}")
-            #
-            #     # Update raw EDA buffer
-            #     eda_2d = np.array(eda_raw)[:, np.newaxis]
-            #     self.hivemind.eda_buffer_raw = np.append(
-            #         self.hivemind.eda_buffer_raw, eda_2d, axis=1)
-            #     self.hivemind.eda_buffer_raw = np.delete(
-            #         self.hivemind.eda_buffer_raw, 0, axis=1)
-            #
-            #     # Detrend on the buffer time window
-            #     eda_detrend = signal.detrend(self.hivemind.eda_buffer_raw)
-            #
-            #     # Get min and max from raw EDA buffer
-            #     eda_mins = np.min(eda_detrend, axis=1)
-            #     eda_maxs = np.max(eda_detrend, axis=1)
-            #     eda_mins = eda_mins - 0.05 * (eda_maxs - eda_mins)
-            #
-            #     # Rescale between 0 and 1
-            #     eda_norm = scaler(eda_detrend[:, -1], eda_mins, eda_maxs)
-            #
-            #     # Update normalised EDA buffer
-            #     eda_2d = eda_norm[:, np.newaxis]
-            #     self.hivemind.eda_buffer = np.append(self.hivemind.eda_buffer,
-            #                                          eda_2d, axis=1)
-            #     self.hivemind.eda_buffer = np.delete(self.hivemind.eda_buffer,
-            #                                          0, axis=1)
-            # else:
-                # Random data if no bitalino
+
+            # TODO: connect to the new neural network
             self.hivemind.eda_buffer = np.random.uniform(size=(1, 50))
 
             sleep(0.01)  # for 100 Hz
 
         self.hivemind.running = False
         # self.hivemind.MASTER_RUNNING = False
-
-    # def terminate(self):
-    #     """
-    #     Terminate threads and connections like a grownup.
-    #     """
-    #     if self.BITALINO_CONNECTED:
-    #         self.eda.close()
-
