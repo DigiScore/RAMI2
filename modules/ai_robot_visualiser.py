@@ -19,7 +19,7 @@ class AI_visualiser:
         df = pd.DataFrame(json.loads(open(raw_file_path).read()))
 
         # each row of x and y is a list; explode the values in the lists to separate rows
-        df = df.explode(["date", "master_stream", "mic_in", "rnd_poetry", "flow2core", "core2flow",
+        df = df.explode(["date", "master_stream", "mic_in", "rnd_poetry", "audio2eda", "flow2core", "core2flow",
                          "audio2core", "audio2flow", "flow2audio", "eda2flow",
                          "design decision", "interrupt", "x", "y", "z"], ignore_index=True)
 
@@ -41,6 +41,7 @@ class AI_visualiser:
         ax[1].set_ylabel("Amplitude")
         ax[1].set_xlabel("Time")
         # ax[1].plot(date, df["rnd_poetry"])
+        ax[1].plot(date, df["audio2eda"], label="audio2eda")
         ax[1].plot(date, df["flow2core"], label="flow2core")
         ax[1].plot(date, df["core2flow"], label="core2flow")
         ax[1].plot(date, df["audio2core"], label="audio2core")
@@ -79,5 +80,5 @@ class AI_visualiser:
         plt.savefig(f"{self.ai_robot_images_path}/ai_plot")
 
 if __name__ == "__main__":
-    test = AI_visualiser('../data/1732271846.9152355/ai_robot/AI_Robot_2024_11_22_1037.json',
-                         '../data/1732271846.9152355/ai_robot/images')
+    test = AI_visualiser('../data/2025_09_25_0957/IMPROV2_block_1_performance_1_mode_AI/ai_robot/AI_Robot_2025_09_25_0957.json',
+                         '../data/2025_09_25_0957/IMPROV2_block_1_performance_1_mode_AI/ai_robot/images')

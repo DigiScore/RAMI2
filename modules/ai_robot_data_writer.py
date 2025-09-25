@@ -40,7 +40,7 @@ class AIRobotDataWriter:
             "master_stream": self.hivemind.thought_train_stream,
             "mic_in": self.hivemind.mic_in,
             "rnd_poetry": self.hivemind.rnd_poetry,
-            # "eeg2flow": self.hivemind.eeg2flow,
+            "audio2eda": self.hivemind.audio2eda,
             "flow2core": self.hivemind.flow2core,
             "core2flow": self.hivemind.core2flow,
             "audio2core": self.hivemind.audio2core,

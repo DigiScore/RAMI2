@@ -5,10 +5,10 @@ number_of_experiments = 8
 volume_range = [1000, 2000]
 
 # [HARDWARE]
-xarm_connected = True
+xarm_connected = False
 
 # [DATAWRITER]
-data_logging = False
+data_logging = True
 path = "data"
 figsize_xy = (100, 12)
 samplerate = 0.01
