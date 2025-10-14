@@ -43,7 +43,7 @@ class Listener:
 
         self.mic_sensitivity = config.mic_sensitivity
 
-        print("Checking mic volume - Please play a sustained note for at least 5 seconds at the correct volume.")
+        print(f"Checking mic volume - Please play a sustained note or chords for at least {config.volume_seconds} seconds at the correct volume.")
         start_time = time()
         counting_time = False
         while True:
@@ -61,7 +61,7 @@ class Listener:
                 if not counting_time:
                     start_time = time()
                     counting_time = True
-            if counting_time and time() - start_time > 5:
+            if counting_time and time() - start_time > config.volume_seconds:
                 print("\rVOLUME OK!!", flush=True, end="\n")
                 break
 

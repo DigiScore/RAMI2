@@ -3,6 +3,7 @@ number_of_experiments = 8
 
 # volume
 volume_range = [1000, 2000]
+volume_seconds = 4
 
 # [HARDWARE]
 xarm_connected = True
