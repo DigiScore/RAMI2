@@ -126,11 +126,11 @@ class Conducter:
                     self.drawbot.clear_alarms()
 
                 # Generate rhythm rate here
-                rhythm_loop_end_time = time() + (randrange(500, 2000) / 1000)
+                rhythm_loop_end_time = time() + (randrange(config.rhythm_loop_end_time_min, config.rhythm_loop_end_time_max) / 1000)
                 logging.debug(f'end time = {rhythm_loop_end_time}')
 
                 # Speed for this phrase
-                arm_speed = randrange(30, 200)
+                arm_speed = randrange(config.arm_speed_min, config.arm_speed_max)
                 if self.XARM_CONNECTED:
                     self.drawbot.set_speed(arm_speed)
 
