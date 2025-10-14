@@ -112,9 +112,9 @@ class AIFactoryRAMI:
                                      model='nebula/models/flow2audio.pt',
                                      in_feature='eda2flow_2d')
 
-        logging.info('NNetRework7 - EDA to flow initialization')
+        logging.info('NNetRework7 - Conductor to flow initialization')
         self.eda2flow = NNetRAMI(name="eda2flow",
-                                   model='nebula/models/eda2flow.pt',
+                                   model='nebula/models/conductor2flow.pt',
                                    in_feature='audio2eda_2d')
 
         self.netlist = [self.audio2eda,

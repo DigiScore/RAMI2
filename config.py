@@ -1,8 +1,13 @@
-# NUMBER OF EXPERIMENTS
-number_of_experiments = 8
+# [NUMBER OF EXPERIMENTS]
+number_of_experiments = 3
 
-# volume
-volume_range = [1000, 2000]
+# [RHYTHM]
+rhythm_loop_end_time_min = 500
+rhythm_loop_end_time_max = 2000
+
+# [ARM SPEED]
+arm_speed_min = 30
+arm_speed_max = 200
 
 # [HARDWARE]
 xarm_connected = False
@@ -32,6 +37,8 @@ xarm_fenced = True
 mic_sensitivity = 10000
 mic_in_prediction = 0.36
 mic_in_logging = False
+volume_range = [1000, 2000]
+volume_seconds = 4
 
 # [STREAMING]
 stream_list = ['rnd_poetry',
