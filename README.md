@@ -13,7 +13,7 @@ pip install -r requirements.txt
 ```
 ## Setup b) poetry
 - Navigate inside RAMI2 folder
-  -     poetry shell
+  -     poetry env activate
   -     poetry install
 
 ## Quick Start
