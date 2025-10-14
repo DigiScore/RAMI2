@@ -10,7 +10,7 @@ arm_speed_min = 30
 arm_speed_max = 200
 
 # [HARDWARE]
-xarm_connected = True
+xarm_connected = False
 
 # [DATAWRITER]
 data_logging = False

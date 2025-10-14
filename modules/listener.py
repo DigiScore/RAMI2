@@ -57,7 +57,7 @@ class Listener:
                 counting_time = False
                 print(f"\rSound Check: {peak} {bars} - VOLUME TOO LOUD. Please turn it up! ", flush=True, end="")
             else:
-                print("\rVOLUME OK! Please keep playing a sustained note", flush=True, end="")
+                print("\rVOLUME OK! Please keep playing a sustained note or chords", flush=True, end="")
                 if not counting_time:
                     start_time = time()
                     counting_time = True
