@@ -52,6 +52,7 @@ class AIRobotDataWriter:
             "x": self.hivemind.current_robot_x_y_z[0],
             "y": self.hivemind.current_robot_x_y_z[1],
             "z": self.hivemind.current_robot_x_y_z[2],
+            "self_flow": self.hivemind.all2flow
         }
         json_object = json.dumps(json_dict)
         self.data_file.write(json_object)

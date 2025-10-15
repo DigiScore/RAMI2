@@ -41,7 +41,7 @@ class DataBorg:
             self.eda2flow_2d: np.array = np.random.uniform(size=(1, 50))
 
             self.all2flow: float = random()
-            self.all2flow_2d: np.array = np.random.uniform(size=(1, 50))
+            self.all2flow_2d: np.array = np.random.uniform(size=(3, 50))
 
             ######################
             # Human inputs
@@ -69,7 +69,7 @@ class DataBorg:
             self.eda_buffer: np.array = np.random.uniform(size=(1, 50))
             """Live 5 sec buffered normalised data from bitalino"""
 
-            self.all_sense_input: np.array = np.random.uniform(size=(7, 50))
+            self.all_sense_input: np.array = np.random.uniform(size=(3, 50))
             """Live 5 sec buffered normalised data from all sense input
             eda, eeg 1-4, core 1-2"""
 
@@ -140,9 +140,20 @@ class DataBorg:
             self.__dict__ = DataBorg.__hivemind
 
     def make_all_sense_data(self):
+        """concat all sense input data for self_flow prediction"""
+        self_flow_data = np.empty((3, 0))
+
         eda_data = self.eda_buffer_raw[0].tolist()
-        eeg_data0 = self.eeg_buffer_raw
-        self.current_robot_x_y
+        core_data0 = self.current_robot_x_y[0].tolist()
+        core_data1 = self.current_robot_x_y[1].tolist()
+        values = [
+            [eda_data[0]],
+            [core_data0[0]],
+            [core_data1[0]],
+            ]
+
+        self_flow_data = np.append(self_flow_data, values, axis=1)
+        return self_flow_data
 
     def randomiser(self):
         """ Blitz's the DataBorg dict with random numbers"""

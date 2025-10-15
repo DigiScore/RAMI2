@@ -133,6 +133,10 @@ class Listener:
                 if time() > first_minute:
                     if time() >= silence_timer:
                         self.hivemind.running = False
+
+            # Make all sense data for self_flow prediction in hivemind
+            self.hivemind.make_all_sense_data()
+
         logging.info('quitting listener thread')
         # self.terminate_listener()
 
