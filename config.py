@@ -48,7 +48,8 @@ stream_list = ['rnd_poetry',
                'audio2flow',
                'flow2audio',
                'eda2flow',
-               'audio2eda']
+               'audio2eda',
+               'all2flow']
 
 
 

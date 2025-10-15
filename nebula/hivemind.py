@@ -40,6 +40,9 @@ class DataBorg:
             self.eda2flow: float = random()
             self.eda2flow_2d: np.array = np.random.uniform(size=(1, 50))
 
+            self.all2flow: float = random()
+            self.all2flow_2d: np.array = np.random.uniform(size=(1, 50))
+
             ######################
             # Human inputs
             ######################
@@ -65,6 +68,10 @@ class DataBorg:
 
             self.eda_buffer: np.array = np.random.uniform(size=(1, 50))
             """Live 5 sec buffered normalised data from bitalino"""
+
+            self.all_sense_input: np.array = np.random.uniform(size=(7, 50))
+            """Live 5 sec buffered normalised data from all sense input
+            eda, eeg 1-4, core 1-2"""
 
             ######################
             # Bitalino streams
@@ -131,6 +138,11 @@ class DataBorg:
 
         else:
             self.__dict__ = DataBorg.__hivemind
+
+    def make_all_sense_data(self):
+        eda_data = self.eda_buffer_raw[0].tolist()
+        eeg_data0 = self.eeg_buffer_raw
+        self.current_robot_x_y
 
     def randomiser(self):
         """ Blitz's the DataBorg dict with random numbers"""

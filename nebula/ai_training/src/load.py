@@ -166,20 +166,12 @@ def get_all(feature_name, tslide):
 
     def all_features(df):
         print("building self_flow")
-        self_flow_array = np.empty((7, 0))
+        self_flow_array = np.empty((3, 0))
 
         # array : array of shape (1 channel, n_times)
         #         EDA data of the DataFrame.
         eda_feature = get_eda(df)
         eda_array = eda_feature[0].tolist()
-
-        #  array : array of shape (4 channels (T3, T4, O1, O2), n_times)
-        #         EEG data of the DataFrame.
-        eeg_feature = get_eeg(df)
-        eeg_array0 = eeg_feature[0].tolist()
-        eeg_array1 = eeg_feature[1].tolist()
-        eeg_array2 = eeg_feature[2].tolist()
-        eeg_array3 = eeg_feature[3].tolist()
 
         #    array : array of shape (2 channels (x, y), n_times)
         #           Core positon data of the DataFrame.
@@ -193,14 +185,10 @@ def get_all(feature_name, tslide):
         for r, eda in enumerate(eda_array):
             values = [
                 [eda],
-                      [eeg_array0[r]],
-                      [eeg_array1[r]],
-                      [eeg_array2[r]],
-                      [eeg_array3[r]],
-                      [core_array0[r]],
-                      [core_array1[r]],
-                      # [audio_array[r]]
-                      ]
+                [core_array0[r]],
+                [core_array1[r]],
+                # [audio_array[r]]
+                ]
             self_flow_array = np.append(self_flow_array, values, axis=1)
 
 
