@@ -166,31 +166,42 @@ def get_all(feature_name, tslide):
 
     def all_features(df):
         print("building self_flow")
-        all_features = np.empty(0)
+        # all_features = np.empty(0)
 
         # array : array of shape (1 channel, n_times)
         #         EDA data of the DataFrame.
         eda_feature = get_eda(df)
-        np.append(all_features, eda_feature[0])
+        eda_array = eda_feature[0]
 
         #  array : array of shape (4 channels (T3, T4, O1, O2), n_times)
         #         EEG data of the DataFrame.
         eeg_feature = get_eeg(df)
-        for n in range(4):
-            np.append(all_features, eeg_feature[n])
+        eeg_array0 = eeg_feature[0]
+        eeg_array1 = eeg_feature[1]
+        eeg_array2 = eeg_feature[2]
+        eeg_array3 = eeg_feature[3]
 
         #    array : array of shape (2 channels (x, y), n_times)
         #           Core positon data of the DataFrame.
         core_feature = get_core(df)
-        for n in range(2):
-            np.append(all_features, core_feature[n])
+        core_array0 = core_feature[0]
+        core_array1 = core_feature[1]
 
         # audio_feature = get_audio(df)
-        # np.append(all_features, audio_feature[0])
+        # audio_array = audio_feature[0]
 
+        self_flow_array = np.dstack((eda_array,
+                                           eeg_array0,
+                                           eeg_array1,
+                                           eeg_array2,
+                                           eeg_array3,
+                                           core_array0,
+                                           core_array1,
+                                           # audio_array
+                                           ))
 
-        print(all_features[np.newaxis, :])
-        return all_features[np.newaxis, :]
+        print(self_flow_array.shape)
+        return self_flow_array[np.newaxis, :]
 
     if os.path.isfile(checkpoint_file):
         print('Checkpoint found, loading...')
@@ -240,9 +251,9 @@ def get_all(feature_name, tslide):
 
 
 if __name__ == '__main__':
-    all_eda = get_all('eda', 5.0)
-    all_eeg = get_all('eeg', 5.0)
-    all_core = get_all('core', 5.0)
-    all_flow = get_all('flow', 5.0)
-    all_env = get_all('audio', 5.0)
+    # all_eda = get_all('eda', 5.0)
+    # all_eeg = get_all('eeg', 5.0)
+    # all_core = get_all('core', 5.0)
+    # all_flow = get_all('flow', 5.0)
+    # all_env = get_all('audio', 5.0)
     all_all = get_all('all', 5.0)
