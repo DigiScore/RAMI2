@@ -188,7 +188,7 @@ def get_all(feature_name, tslide):
         core_array1 = core_feature[1].tolist()
 
         # audio_feature = get_audio(df)
-        # audio_array = audio_feature[0]
+        # audio_array = audio_feature[0].tolist()
 
         for r, eda in enumerate(eda_array):
             values = [
