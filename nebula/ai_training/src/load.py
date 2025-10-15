@@ -166,42 +166,46 @@ def get_all(feature_name, tslide):
 
     def all_features(df):
         print("building self_flow")
-        # all_features = np.empty(0)
+        self_flow_array = np.empty((7, 0))
 
         # array : array of shape (1 channel, n_times)
         #         EDA data of the DataFrame.
         eda_feature = get_eda(df)
-        eda_array = eda_feature[0]
+        eda_array = eda_feature[0].tolist()
 
         #  array : array of shape (4 channels (T3, T4, O1, O2), n_times)
         #         EEG data of the DataFrame.
         eeg_feature = get_eeg(df)
-        eeg_array0 = eeg_feature[0]
-        eeg_array1 = eeg_feature[1]
-        eeg_array2 = eeg_feature[2]
-        eeg_array3 = eeg_feature[3]
+        eeg_array0 = eeg_feature[0].tolist()
+        eeg_array1 = eeg_feature[1].tolist()
+        eeg_array2 = eeg_feature[2].tolist()
+        eeg_array3 = eeg_feature[3].tolist()
 
         #    array : array of shape (2 channels (x, y), n_times)
         #           Core positon data of the DataFrame.
         core_feature = get_core(df)
-        core_array0 = core_feature[0]
-        core_array1 = core_feature[1]
+        core_array0 = core_feature[0].tolist()
+        core_array1 = core_feature[1].tolist()
 
         # audio_feature = get_audio(df)
         # audio_array = audio_feature[0]
 
-        self_flow_array = np.dstack((eda_array,
-                                           eeg_array0,
-                                           eeg_array1,
-                                           eeg_array2,
-                                           eeg_array3,
-                                           core_array0,
-                                           core_array1,
-                                           # audio_array
-                                           ))
+        for r, eda in enumerate(eda_array):
+            values = [
+                [eda],
+                      [eeg_array0[r]],
+                      [eeg_array1[r]],
+                      [eeg_array2[r]],
+                      [eeg_array3[r]],
+                      [core_array0[r]],
+                      [core_array1[r]],
+                      # [audio_array[r]]
+                      ]
+            self_flow_array = np.append(self_flow_array, values, axis=1)
+
 
         print(self_flow_array.shape)
-        return self_flow_array[np.newaxis, :]
+        return self_flow_array
 
     if os.path.isfile(checkpoint_file):
         print('Checkpoint found, loading...')
