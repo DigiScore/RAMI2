@@ -164,6 +164,34 @@ def get_all(feature_name, tslide):
     checkpoint_folder = '../checkpoints/'
     checkpoint_file = f'{checkpoint_folder}all_{feature_name}.pickle'
 
+    def all_features(df):
+        print("building self_flow")
+        all_features = np.empty(0)
+
+        # array : array of shape (1 channel, n_times)
+        #         EDA data of the DataFrame.
+        eda_feature = get_eda(df)
+        np.append(all_features, eda_feature[0])
+
+        #  array : array of shape (4 channels (T3, T4, O1, O2), n_times)
+        #         EEG data of the DataFrame.
+        eeg_feature = get_eeg(df)
+        for n in range(4):
+            np.append(all_features, eeg_feature[n])
+
+        #    array : array of shape (2 channels (x, y), n_times)
+        #           Core positon data of the DataFrame.
+        core_feature = get_core(df)
+        for n in range(2):
+            np.append(all_features, core_feature[n])
+
+        # audio_feature = get_audio(df)
+        # np.append(all_features, audio_feature[0])
+
+
+        print(all_features[np.newaxis, :])
+        return all_features[np.newaxis, :]
+
     if os.path.isfile(checkpoint_file):
         print('Checkpoint found, loading...')
         with open(checkpoint_file, 'rb') as f:
@@ -187,6 +215,8 @@ def get_all(feature_name, tslide):
                 feature = get_flow(df)
             elif feature_name == 'audio':
                 feature = get_audio(df)
+            elif feature_name == 'all':
+                feature = all_features(df)
 
             # Create sliding window
             r = feature.shape[-1] % sliding_size
@@ -215,3 +245,4 @@ if __name__ == '__main__':
     all_core = get_all('core', 5.0)
     all_flow = get_all('flow', 5.0)
     all_env = get_all('audio', 5.0)
+    all_all = get_all('all', 5.0)
