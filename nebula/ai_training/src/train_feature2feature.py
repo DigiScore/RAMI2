@@ -174,4 +174,4 @@ if __name__ == '__main__':
     # train_feature2feature('audio', 'eda', 0.00005, n_epochs=80, batch_size=16)
     #
     # # 7. For live ALL -> flow
-    train_feature2feature('all', 'flow', 0.00005, n_epochs=80, batch_size=16)
+    train_feature2feature('all', 'flow', 0.00005, n_epochs=200, batch_size=16)

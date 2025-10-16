@@ -148,6 +148,9 @@ class AIFactoryRAMI:
             rnd = random()
             self.hivemind.rnd_poetry = rnd
 
+            # Make all sense data for self_flow prediction in hivemind
+            self.hivemind.all_sense_input = self.hivemind.make_all_sense_data()
+
             sleep(0.1)  # 10 Hz
 
     def get_seed(self, net_name):

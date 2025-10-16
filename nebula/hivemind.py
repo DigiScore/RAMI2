@@ -141,11 +141,13 @@ class DataBorg:
 
     def make_all_sense_data(self):
         """concat all sense input data for self_flow prediction"""
-        self_flow_data = np.empty((3, 0))
+        self_flow_data = np.empty((3, 50))
 
         eda_data = self.audio2eda_2d[0].tolist()
         core_data0 = self.current_robot_x_y[0].tolist()
         core_data1 = self.current_robot_x_y[1].tolist()
+        # core_data0 = np.random.uniform(size=(1, 50))[0].tolist()
+        # core_data1 = np.random.uniform(size=(1, 50))[0].tolist()
         values = [
             [eda_data[0]],
             [core_data0[0]],
