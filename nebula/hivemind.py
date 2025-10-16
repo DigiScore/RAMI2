@@ -143,7 +143,7 @@ class DataBorg:
         """concat all sense input data for self_flow prediction"""
         self_flow_data = np.empty((3, 0))
 
-        eda_data = self.eda_buffer_raw[0].tolist()
+        eda_data = self.audio2eda_2d[0].tolist()
         core_data0 = self.current_robot_x_y[0].tolist()
         core_data1 = self.current_robot_x_y[1].tolist()
         values = [
@@ -152,6 +152,7 @@ class DataBorg:
             [core_data1[0]],
             ]
 
+        # print("self_flow_output: ", values)
         self_flow_data = np.append(self_flow_data, values, axis=1)
         return self_flow_data
 
