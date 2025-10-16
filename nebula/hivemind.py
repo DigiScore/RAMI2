@@ -130,6 +130,9 @@ class DataBorg:
             self.interrupted: bool = False
             """Signals an interrupt to the gesture manager"""
 
+            self.randomised: bool = False
+            """Logs the status of randomisation due to internal and microphone interrupts"""
+
             self.running: bool = False
             """Local running bool for single experiments"""
 
@@ -160,6 +163,8 @@ class DataBorg:
 
     def randomiser(self):
         """ Blitz's the DataBorg dict with random numbers"""
+        self.randomised = True
+
         self.master_stream = random()
         self.mic_in = random()
         self.rnd_poetry = random()
@@ -189,3 +194,5 @@ class DataBorg:
 
         self.eda2flow = random()
         self.eda2flow_2d = np.random.uniform(size=(1, 50))
+
+        self.randomised = False
