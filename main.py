@@ -44,21 +44,24 @@ class Main:
         """
         # while self.hivemind.MASTER_RUNNING:
         repeat = 1
-        for i in range(config.number_of_experiments):
+        for i in range(4):
             # Init Conducter & Gesture management (controls XArm)
             self.robot = Conducter()
-
-            print(f"=========================================         Running AI mode: {repeat}")
+            if i == 0:
+                print(f"=========================================         Running PRACTICE MODE")
+            else:
+                print(f"=========================================         Running AI. Experiment number {repeat - 1}")
             # reset variables
             self.hivemind.MASTER_RUNNING = True
             self.first_time_through = True
+            initial_time = time()
             while self.hivemind.MASTER_RUNNING:
                 # is this first time through with a new experiment
                 # if self.ui.go_flag:
                 # make new directory for this log e.g. ../data/20240908_123456
                 if DATA_LOGGING:
                     if self.first_time_through:
-                        self.master_path = Path(f"{MAIN_PATH}/{self.hivemind.session_date}/IMPROV2_block_{repeat}_performance_{i+1}_mode_AI")
+                        self.master_path = Path(f"{MAIN_PATH}/{self.hivemind.session_date}/IMPROV2_block_{repeat-1}_performance_{i+1}_mode_AI")
                         self.makenewdir(self.master_path)
                 else:
                     self.master_path = None
@@ -67,18 +70,17 @@ class Main:
                 if self.first_time_through:
                     self.wolff1_main()
                     self.first_time_through = False
-
                 else:
                     sleep(1)
+                if time() - initial_time > config.duration_of_piece:
+                    self.hivemind.running = False
             self.robot.terminate()
-            print(f"=========================================         Completed experiment mode {repeat}.")
-            if i < config.number_of_experiments - 1:
+            print(f"=========================================         Completed experiment {repeat-1}.")
+            if i < 3:
                 answer = input("Next Experiment?")
-            else:
-                print("TERMINATING experiment mode.")
             repeat += 1
             self.first_time_through = True
-        answer = input("Next Experiment?")
+        print("TERMINATING experiment mode.")
 
         # end of experiments so close things down
         self.hivemind.MASTER_RUNNING = False

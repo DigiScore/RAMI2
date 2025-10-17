@@ -1,5 +1,5 @@
 # [NUMBER OF EXPERIMENTS]
-number_of_experiments = 3
+number_of_experiments = 4
 
 # [RHYTHM]
 rhythm_loop_end_time_min = 500
@@ -10,7 +10,7 @@ arm_speed_min = 30
 arm_speed_max = 200
 
 # [HARDWARE]
-xarm_connected = False
+xarm_connected = True
 
 # [DATAWRITER]
 data_logging = True
@@ -25,8 +25,8 @@ speed = 5  # dynamic tempo of the all processes: 1 = slow, 10 = fast
 temperature = 0
 
 # [XARM]
-# xarm1_port = '192.168.1.212'
-xarm1_port = '127.0.0.1'
+xarm1_port = '192.168.1.212'
+# xarm1_port = '127.0.0.1'
 xarm_x_extents = [-500, 500]  # cartesian coords in mm
 xarm_y_extents = [-500, 500]
 xarm_z_extents = [55, 1000]
@@ -37,7 +37,7 @@ xarm_fenced = True
 mic_sensitivity = 10000
 mic_in_prediction = 0.36
 mic_in_logging = False
-volume_range = [1000, 2000]
+volume_range = [10000, 20000]
 volume_seconds = 4
 
 # [STREAMING]

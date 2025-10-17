@@ -43,27 +43,27 @@ class Listener:
 
         self.mic_sensitivity = config.mic_sensitivity
 
-        print(f"Checking mic volume - Please play a sustained note or chords for at least {config.volume_seconds} seconds at the correct volume.")
-        start_time = time()
-        counting_time = False
-        while True:
-            data = np.fromstring(self.stream.read(self.CHUNK), dtype=np.int16)
-            peak = int(np.average(np.abs(data)) * 2)
-            bars = "#" * int(50 * peak / 2 ** 16)
-            if peak < config.volume_range[0]:
-                counting_time = False
-                print(f"\rSound Check: {peak} {bars} - VOLUME TOO LOW. Please turn it up! ", flush=True, end="")
-            elif peak > config.volume_range[1]:
-                counting_time = False
-                print(f"\rSound Check: {peak} {bars} - VOLUME TOO LOUD. Please turn it up! ", flush=True, end="")
-            else:
-                print("\rVOLUME OK! Please keep playing a sustained note or chords", flush=True, end="")
-                if not counting_time:
-                    start_time = time()
-                    counting_time = True
-            if counting_time and time() - start_time > config.volume_seconds:
-                print("\rVOLUME OK!!", flush=True, end="\n")
-                break
+        # print(f"Checking mic volume - Please play a sustained note or chords for at least {config.volume_seconds} seconds at the correct volume.")
+        # start_time = time()
+        # counting_time = False
+        # while True:
+        #     data = np.fromstring(self.stream.read(self.CHUNK), dtype=np.int16)
+        #     peak = int(np.average(np.abs(data)) * 2)
+        #     bars = "#" * int(50 * peak / 2 ** 16)
+        #     if peak < config.volume_range[0]:
+        #         counting_time = False
+        #         print(f"\rSound Check: {peak} {bars} - VOLUME TOO LOW. Please turn it up! ", flush=True, end="")
+        #     elif peak > config.volume_range[1]:
+        #         counting_time = False
+        #         print(f"\rSound Check: {peak} {bars} - VOLUME TOO LOUD. Please turn it up! ", flush=True, end="")
+        #     else:
+        #         print("\rVOLUME OK! Please keep playing a sustained note or chords", flush=True, end="")
+        #         if not counting_time:
+        #             start_time = time()
+        #             counting_time = True
+        #     if counting_time and time() - start_time > config.volume_seconds:
+        #         print("\rVOLUME OK!!", flush=True, end="\n")
+        #         break
 
         # Plug into the hive mind data borg
         self.hivemind = DataBorg()
