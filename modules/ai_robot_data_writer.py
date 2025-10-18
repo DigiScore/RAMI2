@@ -59,6 +59,10 @@ class AIRobotDataWriter:
         self.data_file.write(json_object)
         self.data_file.write(',\n')
 
+        # turns off randomiser in Hivemind after being logged!!
+        self.hivemind.randomised = False
+
+
     def terminate_data_writer(self):
         """
         Terminate the json writer and close file.

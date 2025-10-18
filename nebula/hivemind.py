@@ -195,4 +195,5 @@ class DataBorg:
         self.eda2flow = random()
         self.eda2flow_2d = np.random.uniform(size=(1, 50))
 
-        self.randomised = False
+        # moved to logger so guarenteed capture
+        # self.randomised = False
