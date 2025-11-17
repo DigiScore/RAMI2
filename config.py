@@ -10,7 +10,7 @@ arm_speed_min = 30
 arm_speed_max = 200
 
 # [HARDWARE]
-xarm_connected = False
+xarm_connected = True
 
 # [DATAWRITER]
 data_logging = True
@@ -25,8 +25,8 @@ speed = 5  # dynamic tempo of the all processes: 1 = slow, 10 = fast
 temperature = 0
 
 # [XARM]
-# xarm1_port = '192.168.1.212'
-xarm1_port = '127.0.0.1'
+xarm1_port = '192.168.1.212'
+# xarm1_port = '127.0.0.1'
 xarm_x_extents = [-500, 500]  # cartesian coords in mm
 xarm_y_extents = [-500, 500]
 xarm_z_extents = [55, 1000]
