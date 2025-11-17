@@ -10,7 +10,7 @@ arm_speed_min = 30
 arm_speed_max = 200
 
 # [HARDWARE]
-xarm_connected = True
+xarm_connected = False
 
 # [DATAWRITER]
 data_logging = True
@@ -25,8 +25,8 @@ speed = 5  # dynamic tempo of the all processes: 1 = slow, 10 = fast
 temperature = 0
 
 # [XARM]
-xarm1_port = '192.168.1.212'
-# xarm1_port = '127.0.0.1'
+# xarm1_port = '192.168.1.212'
+xarm1_port = '127.0.0.1'
 xarm_x_extents = [-500, 500]  # cartesian coords in mm
 xarm_y_extents = [-500, 500]
 xarm_z_extents = [55, 1000]
@@ -37,7 +37,7 @@ xarm_fenced = True
 mic_sensitivity = 10000
 mic_in_prediction = 0.36
 mic_in_logging = False
-volume_range = [10000, 20000]
+volume_range = [1000, 2000]
 volume_seconds = 4
 
 # [STREAMING]
@@ -48,7 +48,8 @@ stream_list = ['rnd_poetry',
                'audio2flow',
                'flow2audio',
                'eda2flow',
-               'audio2eda']
+               'audio2eda',
+               'all2flow']
 
 
 

@@ -117,13 +117,20 @@ class AIFactoryRAMI:
                                    model='nebula/models/conductor2flow.pt',
                                    in_feature='audio2eda_2d')
 
+        logging.info('NNetRework8 - all params to self_flow initialization')
+        self.all2flow = NNetRAMI(name="all2flow",
+                                 model='nebula/models/all2flow.pt',
+                                 in_feature='all_sense_input')
+
         self.netlist = [self.audio2eda,
                         self.flow2core,
                         self.core2flow,
                         self.audio2core,
                         self.audio2flow,
                         self.flow2audio,
-                        self.eda2flow]
+                        self.eda2flow,
+                        self.all2flow]
+
         print("AI factory initialized")
 
     def make_data(self):
@@ -140,6 +147,9 @@ class AIFactoryRAMI:
             # Create a stream of random poetry
             rnd = random()
             self.hivemind.rnd_poetry = rnd
+
+            # Make all sense data for self_flow prediction in hivemind
+            self.hivemind.all_sense_input = self.hivemind.make_all_sense_data()
 
             sleep(0.1)  # 10 Hz
 

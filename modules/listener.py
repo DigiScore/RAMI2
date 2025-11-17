@@ -133,6 +133,7 @@ class Listener:
                 if time() > first_minute:
                     if time() >= silence_timer:
                         self.hivemind.running = False
+
         logging.info('quitting listener thread')
         # self.terminate_listener()
 

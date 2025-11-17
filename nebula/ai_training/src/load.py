@@ -164,6 +164,37 @@ def get_all(feature_name, tslide):
     checkpoint_folder = '../checkpoints/'
     checkpoint_file = f'{checkpoint_folder}all_{feature_name}.pickle'
 
+    def all_features(df):
+        print("building self_flow")
+        self_flow_array = np.empty((3, 0))
+
+        # array : array of shape (1 channel, n_times)
+        #         EDA data of the DataFrame.
+        eda_feature = get_eda(df)
+        eda_array = eda_feature[0].tolist()
+
+        #    array : array of shape (2 channels (x, y), n_times)
+        #           Core positon data of the DataFrame.
+        core_feature = get_core(df)
+        core_array0 = core_feature[0].tolist()
+        core_array1 = core_feature[1].tolist()
+
+        # audio_feature = get_audio(df)
+        # audio_array = audio_feature[0].tolist()
+
+        for r, eda in enumerate(eda_array):
+            values = [
+                [eda],
+                [core_array0[r]],
+                [core_array1[r]],
+                # [audio_array[r]]
+                ]
+            self_flow_array = np.append(self_flow_array, values, axis=1)
+
+
+        print(self_flow_array.shape)
+        return self_flow_array
+
     if os.path.isfile(checkpoint_file):
         print('Checkpoint found, loading...')
         with open(checkpoint_file, 'rb') as f:
@@ -187,6 +218,8 @@ def get_all(feature_name, tslide):
                 feature = get_flow(df)
             elif feature_name == 'audio':
                 feature = get_audio(df)
+            elif feature_name == 'all':
+                feature = all_features(df)
 
             # Create sliding window
             r = feature.shape[-1] % sliding_size
@@ -210,8 +243,9 @@ def get_all(feature_name, tslide):
 
 
 if __name__ == '__main__':
-    all_eda = get_all('eda', 5.0)
-    all_eeg = get_all('eeg', 5.0)
-    all_core = get_all('core', 5.0)
-    all_flow = get_all('flow', 5.0)
-    all_env = get_all('audio', 5.0)
+    # all_eda = get_all('eda', 5.0)
+    # all_eeg = get_all('eeg', 5.0)
+    # all_core = get_all('core', 5.0)
+    # all_flow = get_all('flow', 5.0)
+    # all_env = get_all('audio', 5.0)
+    all_all = get_all('all', 5.0)
