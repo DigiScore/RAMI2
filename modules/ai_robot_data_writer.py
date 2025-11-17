@@ -49,11 +49,10 @@ class AIRobotDataWriter:
             "eda2flow": self.hivemind.eda2flow,
             "design decision": self.hivemind.design_decision,
             "interrupt": self.hivemind.interrupted,
-            "randomiser": self.hivemind.randomiser,
             "x": self.hivemind.current_robot_x_y_z[0],
             "y": self.hivemind.current_robot_x_y_z[1],
             "z": self.hivemind.current_robot_x_y_z[2],
-            "self_flow": self.hivemind.all2flow
+            "self_flow": self.hivemind.all2flow,
         }
         json_object = json.dumps(json_dict)
         self.data_file.write(json_object)
